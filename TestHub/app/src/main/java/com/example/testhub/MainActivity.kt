@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.testhub.fragments.LoginFragment
-import com.example.testhub.fragments.RegistrationFragment
+import com.example.testhub.registration.RegistrationFragment
 import com.example.testhub.fragments.StartMenu
 
 class MainActivity :
