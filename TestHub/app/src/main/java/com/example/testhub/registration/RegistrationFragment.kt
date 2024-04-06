@@ -1,6 +1,7 @@
 package com.example.testhub.registration
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,15 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.testhub.R
+import com.example.testhub.repository.RepositoryNetwork
+import com.example.testhub.repository.RepositoryNetworkProvider
 import com.google.android.material.textfield.TextInputLayout
 
 class RegistrationFragment : Fragment() {
 
-    private val viewModel: ViewModelRegistration by viewModels { ViewModelRegistrationFactory() }
+    private val viewModel: ViewModelRegistration by viewModels {
+        ViewModelRegistrationFactory((requireActivity() as RepositoryNetworkProvider).provideRepository())
+    }
 
     private var usernameInputLayout: TextInputLayout? = null
     private var passwordInputLayout: TextInputLayout? = null
@@ -54,7 +59,7 @@ class RegistrationFragment : Fragment() {
         val password = passwordEditText?.text?.toString().orEmpty()
         val repPassword = repPasswordEditText?.text?.toString().orEmpty()
 
-        viewModel.registration(username, password, repPassword, email)
+        viewModel.validation(username, password, repPassword, email)
     }
 
     private fun initViews(view: View) {
@@ -74,29 +79,35 @@ class RegistrationFragment : Fragment() {
 
     private fun setState(state: ViewModelRegistration.State){
         when(state){
+            is ViewModelRegistration.State.Loading ->{
+                registrationButton?.isEnabled = false
+            }
             is ViewModelRegistration.State.EmailError ->{
                 emailInputLayout?.helperText = "Введите почту"
+                registrationButton?.isEnabled = true
             }
             is ViewModelRegistration.State.PasswordError ->{
                 passwordInputLayout?.helperText = "Введите пароль"
+                registrationButton?.isEnabled = true
             }
             is ViewModelRegistration.State.RepPasswordError ->{
                 repPasswordInputLayout?.helperText = "Пароли должны совпадать"
+                registrationButton?.isEnabled = true
             }
             is ViewModelRegistration.State.UserNameError ->{
                 usernameInputLayout?.helperText = "Введите имя пользователя"
+                registrationButton?.isEnabled = true
             }
             is ViewModelRegistration.State.Success ->{
-                usernameInputLayout?.helperText = null
-                repPasswordInputLayout?.helperText = null
-                passwordInputLayout?.helperText = null
-                emailInputLayout?.helperText = null
+                Log.d("RegistrationFragment", "Registration Success!!!")
+                registrationButton?.isEnabled = true
             }
             is ViewModelRegistration.State.Default ->{
                 usernameInputLayout?.helperText = null
                 repPasswordInputLayout?.helperText = null
                 passwordInputLayout?.helperText = null
                 emailInputLayout?.helperText = null
+                registrationButton?.isEnabled = true
             }
         }
     }

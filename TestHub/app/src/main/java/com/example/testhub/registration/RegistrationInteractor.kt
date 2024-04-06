@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 
 class RegistrationInteractor (private val dispatcher: CoroutineDispatcher) {
 
-    suspend fun registration(userName: String, password: String, repPassword: String, email: String):  RegistrationResult =
+    suspend fun validation(userName: String, password: String, repPassword: String, email: String):  RegistrationResult =
         withContext(dispatcher) {
 
             when {

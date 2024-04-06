@@ -1,12 +1,11 @@
 package com.example.testhub.model
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
-@Parcelize
+@Serializable
 data class User(
-    val userName: String,
-    val mail: String,
-    val login: String,
+    val username: String,
+    val email: String,
     val password: String
-) : Parcelable
+)
