@@ -2,7 +2,7 @@ package com.example.testhub
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.testhub.fragments.LoginFragment
+import com.example.testhub.login.LoginFragment
 import com.example.testhub.registration.RegistrationFragment
 import com.example.testhub.fragments.StartMenu
 import com.example.testhub.repository.Repository
@@ -10,11 +10,13 @@ import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
+import com.example.testhub.test_fragment.TestFragment
 
 class MainActivity :
     AppCompatActivity(),
-    StartMenu.Companion.goLogin,
-    LoginFragment.Companion.goRegistration,
+    StartMenu.Companion.StartFragmentInterface,
+    LoginFragment.Companion.LoginFragmentInterface,
+    RegistrationFragment.Companion.RegistrationFragmentInterface,
     RepositoryNetworkProvider {
 
 
@@ -39,6 +41,11 @@ class MainActivity :
 
     override fun openRegistrationLayout() {
         supportFragmentManager.beginTransaction().addToBackStack(null).add(R.id.fragment_container, RegistrationFragment())
+            .commit()
+    }
+
+    override fun openTestLayout() {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestFragment())
             .commit()
     }
 

@@ -17,13 +17,13 @@ class ViewModelRegistration(
     private val _state = MutableLiveData<State>(State.Default())
     val state: LiveData<State> get() = _state
 
-    fun validation(userName: String, password: String, repPassword: String, email: String) {
+    fun registration(userName: String, password: String, repPassword: String, email: String) {
         viewModelScope.launch {
 
-            val registrationResult = interactor.validation(userName, password, repPassword ,email)
+            val validationResult = interactor.validation(userName, password, repPassword ,email)
 
-            Log.d("ViewModel", state.value.toString())
-            _state.value  = when(registrationResult){
+            //Log.d("ViewModel", state.value.toString())
+            _state.value  = when(validationResult){
                 is RegistrationInteractor.RegistrationResult.Error.Password -> State.PasswordError()
                 is RegistrationInteractor.RegistrationResult.Error.UserName -> State.UserNameError()
                 is RegistrationInteractor.RegistrationResult.Error.Email -> State.EmailError()
@@ -33,10 +33,13 @@ class ViewModelRegistration(
 
             if(_state.value is State.Success){
                 _state.value = State.Loading()
-                Log.d("ViewModel", state.value.toString())
-                repo.registration(User(
+                val response = repo.registration(User(
                     userName, email, password
                 ))
+                Log.d("ViewModelReg", "$response")
+                if(!response){
+                    _state.value = State.RegistrationError()
+                }
                 _state.value = State.Default()
             }
         }
@@ -50,6 +53,9 @@ class ViewModelRegistration(
         class UserNameError : State()
         class PasswordError : State()
         class RepPasswordError : State()
+
+        class RegistrationError : State()
+
         class Success : State()
     }
 }

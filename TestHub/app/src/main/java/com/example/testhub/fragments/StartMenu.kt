@@ -12,11 +12,11 @@ import com.example.testhub.R
 
 class StartMenu : Fragment() {
 
-    private var listener: goLogin? = null
+    private var listener: StartFragmentInterface? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(context is goLogin)
+        if(context is StartFragmentInterface)
             listener = context
     }
 
@@ -44,7 +44,7 @@ class StartMenu : Fragment() {
     companion object {
         fun newInstance(sharedPrefs: SharedPreferences?) = StartMenu()
 
-        interface goLogin{
+        interface StartFragmentInterface{
             fun openLoginLayout()
         }
     }
