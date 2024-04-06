@@ -65,7 +65,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailEditText"
+            android:id="@+id/emailEditLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="236dp"
             android:layout_height="60dp"
@@ -76,6 +76,7 @@
             android:layout_marginTop="32dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"/>
@@ -83,17 +84,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordEditText"
+            android:id="@+id/passwordEditLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="236dp"
             android:layout_height="60dp"
             android:hint="Пароль"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emailEditText"
+            app:layout_constraintTop_toBottomOf="@id/emailEditLayout"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType= "textPassword"/>
@@ -106,7 +108,7 @@
             android:layout_height="50dp"
             android:backgroundTint="@color/black"
             android:text="Войти"
-            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+            app:layout_constraintTop_toBottomOf="@id/passwordEditLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"

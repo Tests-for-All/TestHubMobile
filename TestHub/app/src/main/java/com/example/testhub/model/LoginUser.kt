@@ -1,11 +1,9 @@
 package com.example.testhub.model
 
-import android.os.Parcelable
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class LoginUser (
     val username: String,
-    val email: String,
     val password: String
 )

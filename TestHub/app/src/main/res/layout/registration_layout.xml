@@ -32,7 +32,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
-        android:layout_height="450dp"
+        android:layout_height="550dp"
         android:background="@drawable/rounded_shape_white"
         app:layout_constraintTop_toTopOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,35 +63,43 @@
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/usernameEditText"
+            android:id="@+id/usernameEditLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="236dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:hint="Имя пользователя"
+            app:counterEnabled="true"
+            app:counterMaxLength="16"
+            app:helperTextTextColor="@color/helper_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line"
             android:layout_marginTop="24dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
+                android:maxLength="16"
+                android:maxLines="1"
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailEditText"
+            android:id="@+id/emailEditLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="236dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:hint="Почта"
+            app:helperTextTextColor="@color/helper_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/usernameEditText"
+            app:layout_constraintTop_toBottomOf="@id/usernameEditLayout"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"/>
@@ -99,17 +107,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordEditText"
+            android:id="@+id/passwordEditLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="236dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:hint="Пароль"
+            app:helperTextTextColor="@color/helper_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emailEditText"
+            app:layout_constraintTop_toBottomOf="@id/emailEditLayout"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType= "textPassword"/>
@@ -117,17 +127,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/repPasswordEditText"
+            android:id="@+id/repPasswordEditLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="236dp"
-            android:layout_height="60dp"
-            android:hint="Повторить пароль"
+            android:layout_height="wrap_content"
+            android:hint="Повторите пароль"
+            app:helperTextTextColor="@color/helper_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+            app:layout_constraintTop_toBottomOf="@id/passwordEditLayout"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/repPasswordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType= "textPassword"/>
@@ -140,7 +152,7 @@
             android:layout_height="50dp"
             android:backgroundTint="@color/black"
             android:text="Зарегистрироваться"
-            app:layout_constraintTop_toBottomOf="@id/repPasswordEditText"
+            app:layout_constraintTop_toBottomOf="@id/repPasswordEditLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="32dp"
