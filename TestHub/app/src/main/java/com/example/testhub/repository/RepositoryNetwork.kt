@@ -2,8 +2,11 @@ package com.example.testhub.repository
 
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.Test
 import com.example.testhub.model.User
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
+import com.example.testhub.retrofit.response.TestInfo
+import retrofit2.Response
 
 class RepositoryNetwork(
     private val remoteDataSource: RemoteDataSource
@@ -18,5 +21,13 @@ class RepositoryNetwork(
 
     override suspend fun exampleRequest(): Boolean {
         return remoteDataSource.exampleRequest()
+    }
+
+    override suspend fun loadTests(): List<Test>?{
+        return remoteDataSource.loadTests()
+    }
+
+    override suspend fun loadInfoTest(idTest: Long): TestInfo? {
+        return remoteDataSource.loadInfoTest(idTest)
     }
 }

@@ -10,7 +10,7 @@ import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
-import com.example.testhub.test_fragment.TestFragment
+import com.example.testhub.testFragment.TestFragment
 
 class MainActivity :
     AppCompatActivity(),
