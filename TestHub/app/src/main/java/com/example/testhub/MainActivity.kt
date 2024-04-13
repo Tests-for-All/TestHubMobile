@@ -2,15 +2,15 @@ package com.example.testhub
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.testhub.login.LoginFragment
-import com.example.testhub.registration.RegistrationFragment
+import com.example.testhub.loginFragment.LoginFragment
+import com.example.testhub.registrationFragment.RegistrationFragment
 import com.example.testhub.fragments.StartMenu
 import com.example.testhub.repository.Repository
 import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
-import com.example.testhub.test_fragment.TestFragment
+import com.example.testhub.testFragment.TestFragment
 
 class MainActivity :
     AppCompatActivity(),
@@ -20,8 +20,7 @@ class MainActivity :
     RepositoryNetworkProvider {
 
 
-    private val networkModule = NetworkModule()
-    private val remoteDataSource = RemoteDataSource(networkModule.api, networkModule.auth)
+    private val remoteDataSource = RemoteDataSource(NetworkModule.api, NetworkModule.auth)
     private val repo = RepositoryNetwork(remoteDataSource)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

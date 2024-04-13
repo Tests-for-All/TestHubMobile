@@ -1,4 +1,4 @@
-package com.example.testhub.test_fragment
+package com.example.testhub.testFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.testhub.R
-import com.example.testhub.registration.ViewModelRegistration
-import com.example.testhub.registration.ViewModelRegistrationFactory
 import com.example.testhub.repository.RepositoryNetworkProvider
 
 class TestFragment : Fragment() {

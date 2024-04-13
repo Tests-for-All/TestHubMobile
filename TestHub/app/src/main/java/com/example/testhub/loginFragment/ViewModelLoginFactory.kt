@@ -1,11 +1,8 @@
-package com.example.testhub.login
+package com.example.testhub.loginFragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.testhub.registration.RegistrationInteractor
-import com.example.testhub.registration.ViewModelRegistration
 import com.example.testhub.repository.Repository
-import kotlinx.coroutines.Dispatchers
 
 class ViewModelLoginFactory (
     private val repo: Repository

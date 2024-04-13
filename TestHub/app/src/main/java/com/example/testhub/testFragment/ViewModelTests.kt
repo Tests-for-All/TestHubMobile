@@ -1,10 +1,9 @@
-package com.example.testhub.test_fragment
+package com.example.testhub.testFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testhub.registration.ViewModelRegistration
 import com.example.testhub.repository.Repository
 import kotlinx.coroutines.launch
 

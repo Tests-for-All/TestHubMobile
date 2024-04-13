@@ -1,4 +1,4 @@
-package com.example.testhub.registration
+package com.example.testhub.registrationFragment
 
 import android.util.Log
 import androidx.lifecycle.LiveData

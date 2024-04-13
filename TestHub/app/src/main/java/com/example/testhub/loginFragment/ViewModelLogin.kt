@@ -1,15 +1,12 @@
-package com.example.testhub.login
+package com.example.testhub.loginFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testhub.model.LoginUser
-import com.example.testhub.registration.RegistrationInteractor
-import com.example.testhub.registration.ViewModelRegistration
 import com.example.testhub.repository.Repository
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ViewModelLogin (
     private val repo: Repository

@@ -7,15 +7,15 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 
-class NetworkModule {
+object NetworkModule {
 
     val auth = AuthInterceptor(null)
-    private var client: OkHttpClient = OkHttpClient.Builder()
+    private var client = OkHttpClient.Builder()
         .addInterceptor(auth)
         .build()
 
-    private val ip = "192.168.1.108"
-    private val baseUrl = "http://$ip:8080/"
+    private const val ip = "192.168.1.108"
+    private const val baseUrl = "http://$ip:8080/"
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
@@ -47,6 +47,6 @@ class AuthInterceptor(private var authToken: String?) : Interceptor {
     }
 
     fun updateToken(newToken: String?) {
-        authToken = newToken!!
+        authToken = newToken.orEmpty()
     }
 }
