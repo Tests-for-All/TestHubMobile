@@ -3,7 +3,9 @@ package com.example.testhub.retrofit.dataSource
 import android.util.Log
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
+import com.example.testhub.model.TestToAdd
 import com.example.testhub.model.User
 import com.example.testhub.retrofit.ApiService
 import com.example.testhub.retrofit.AuthInterceptor
@@ -65,7 +67,6 @@ class RemoteDataSource(
 
         return when(response.code()){
             200 -> {
-                //Log.d ("loadTests", response.body().toString())
                 return response.body()
             }
             else -> null
@@ -77,9 +78,30 @@ class RemoteDataSource(
 
         return when(response.code()){
             200 -> {
-                return response.body()
+                response.body()
             }
             else -> null
+        }
+    }
+
+    override suspend fun loadTags(): List<Tag>? {
+        val response = api.loadTags()
+
+        return when(response.code()){
+            200 -> response.body()
+            else -> null
+        }
+
+    }
+
+    override suspend fun saveTest(test: TestToAdd): Boolean{
+        val response = api.saveTest(test)
+
+        Log.d("saveTestResp", response.code().toString())
+
+        return when(response.code()){
+            201 -> true
+            else -> false
         }
     }
 

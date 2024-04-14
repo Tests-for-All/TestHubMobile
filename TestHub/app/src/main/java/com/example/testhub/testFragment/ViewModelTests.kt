@@ -20,10 +20,10 @@ class ViewModelTests (
     private val _testInfo = MutableLiveData<TestInfo>(null)
     val testInfo: MutableLiveData<TestInfo> get() = _testInfo
 
-    init {
+    init{
         loadTests()
     }
-    private fun loadTests(){
+    fun loadTests(){
         viewModelScope.launch {
             _testsList.value = repo.loadTests().orEmpty()
             Log.d("checkList", "${_testsList.value}")
@@ -35,17 +35,4 @@ class ViewModelTests (
             _testInfo.value = repo.loadInfoTest(idTest)
         }
     }
-/*    fun exampleRequest(){
-        viewModelScope.launch {
-
-
-        }
-    }*/
-
-/*    sealed class State {
-        class Default : State()
-        class Error : State()
-
-        class Success : State()
-    }*/
 }

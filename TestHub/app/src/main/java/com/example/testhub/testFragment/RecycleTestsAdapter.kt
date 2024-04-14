@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testhub.R
 import com.example.testhub.model.Test
 
-class RecyclerTestsAdapter(private val onClickTest: (item: Test) -> Unit)
-    : ListAdapter<Test, RecyclerTestsAdapter.ViewHolderActor>(DiffCallback()) {
-    class ViewHolderActor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class RecycleTestsAdapter(private val onClickTest: (item: Test) -> Unit)
+    : ListAdapter<Test, RecycleTestsAdapter.ViewHolderTest>(DiffCallback()) {
+    class ViewHolderTest(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title = itemView.findViewById<TextView>(R.id.test_name)
         private val tags = itemView.findViewById<TextView>(R.id.test_tag)
         fun bind(item: Test, onClickTest: (item: Test) -> Unit) {
@@ -34,12 +34,12 @@ class RecyclerTestsAdapter(private val onClickTest: (item: Test) -> Unit)
             return oldItem == newItem
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderActor {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderTest {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolderActor(inflater.inflate(R.layout.item_test, parent, false))
+        return ViewHolderTest(inflater.inflate(R.layout.item_test, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolderActor, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolderTest, position: Int) {
         val item = getItem(position)
         holder.bind(item, onClickTest)
     }

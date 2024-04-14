@@ -2,6 +2,7 @@ package com.example.testhub
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.testhub.addTestFragment.AddTestFragment
 import com.example.testhub.login.LoginFragment
 import com.example.testhub.registration.RegistrationFragment
 import com.example.testhub.fragments.StartMenu
@@ -17,6 +18,8 @@ class MainActivity :
     StartMenu.Companion.StartFragmentInterface,
     LoginFragment.Companion.LoginFragmentInterface,
     RegistrationFragment.Companion.RegistrationFragmentInterface,
+    TestFragment.Companion.TestFragmentInterface,
+    AddTestFragment.Companion.AddTestInterface,
     RepositoryNetworkProvider {
 
 
@@ -48,8 +51,21 @@ class MainActivity :
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestFragment())
             .commit()
     }
+    override fun openAddTestLayout() {
+        supportFragmentManager.beginTransaction().addToBackStack(null).add(R.id.fragment_container, AddTestFragment())
+            .commit()
+    }
 
     override fun provideRepository(): Repository {
         return repo
+    }
+
+    override fun backToTestLayout() {
+        val lastFragment = supportFragmentManager.fragments.last()
+        supportFragmentManager.beginTransaction()
+            .apply {
+                remove(lastFragment)
+                commit()
+            }
     }
 }
