@@ -14,7 +14,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +22,6 @@ import com.example.testhub.R
 import com.example.testhub.model.Answer
 import com.example.testhub.model.Question
 import com.example.testhub.model.Tag
-import com.example.testhub.model.Test
 import com.example.testhub.model.TestToAdd
 import com.example.testhub.repository.RepositoryNetworkProvider
 import kotlinx.coroutines.launch
@@ -37,7 +35,7 @@ class AddTestFragment : Fragment() {
     private lateinit var nameTestET: EditText
 
     private val viewModel: ViewModelAddTest by viewModels {
-        ViewModelTagsFactory((requireActivity() as RepositoryNetworkProvider).provideRepository())
+        ViewModelAddTestFactory((requireActivity() as RepositoryNetworkProvider).provideRepository())
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -157,6 +155,8 @@ class AddTestFragment : Fragment() {
             val newList = questionRV.currentList.toMutableList()
             newList.add(question)
             questionRV.submitList(newList)
+
+            Toast.makeText(requireContext(), "Вопрос добавлен", Toast.LENGTH_SHORT).show()
         }
         builder.show()
     }

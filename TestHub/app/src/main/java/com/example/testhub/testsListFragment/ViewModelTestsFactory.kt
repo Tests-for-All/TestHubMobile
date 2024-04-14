@@ -1,14 +1,16 @@
-package com.example.testhub.addTestFragment
+package com.example.testhub.testsListFragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testhub.repository.Repository
 
-class ViewModelTagsFactory (
+@Suppress("UNCHECKED_CAST")
+class ViewModelTestsFactory (
     private val repo: Repository
 ): ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T = when (modelClass) {
-        ViewModelAddTest::class.java -> ViewModelAddTest (repo)
+        ViewModelTests::class.java -> ViewModelTests (repo)
         else -> throw IllegalArgumentException("$modelClass is not registered ViewModel")
     } as T
 }

@@ -1,4 +1,4 @@
-package com.example.testhub.testFragment
+package com.example.testhub.testsListFragment
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +17,7 @@ class ViewModelTests (
     private val _testsList = MutableStateFlow<List<Test>?>(emptyList())
     val testsList: StateFlow<List<Test>?> get() = _testsList
 
-    private val _testInfo = MutableLiveData<TestInfo>(null)
+    private val _testInfo = MutableLiveData<TestInfo>()
     val testInfo: MutableLiveData<TestInfo> get() = _testInfo
 
     init{

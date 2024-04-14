@@ -20,7 +20,8 @@ class RecycleAnswersAdapter : ListAdapter<Answer, RecycleAnswersAdapter.ViewHold
         private val answer = itemView.findViewById<EditText>(R.id.answerEditText)
         private val switch = itemView.findViewById<Switch>(R.id.answer_is_true)
         fun bind(item: Answer){
-            answer.setText("")
+            answer.setText(item.text)
+            switch.isChecked = item.isTrue
             answer.addTextChangedListener ( object: TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -39,7 +40,6 @@ class RecycleAnswersAdapter : ListAdapter<Answer, RecycleAnswersAdapter.ViewHold
 
             switch.setOnCheckedChangeListener { _, isChecked ->
                 item.isTrue = isChecked
-
                 Log.d("checkAnswer", item.toString())
             }
         }

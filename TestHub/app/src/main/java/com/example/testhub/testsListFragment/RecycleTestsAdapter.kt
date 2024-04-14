@@ -1,4 +1,4 @@
-package com.example.testhub.testFragment
+package com.example.testhub.testsListFragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +17,7 @@ class RecycleTestsAdapter(private val onClickTest: (item: Test) -> Unit)
         private val tags = itemView.findViewById<TextView>(R.id.test_tag)
         fun bind(item: Test, onClickTest: (item: Test) -> Unit) {
             title.text = item.name
-            tags.text = "test test test"
+            tags.text = item.tags.joinToString(separator = " ") { "[${it.name}]" }
 
             itemView.setOnClickListener{
                 onClickTest(item)

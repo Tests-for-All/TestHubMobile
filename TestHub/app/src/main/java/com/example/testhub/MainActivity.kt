@@ -11,17 +11,16 @@ import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
-import com.example.testhub.testFragment.TestFragment
+import com.example.testhub.testsListFragment.TestsListFragment
 
 class MainActivity :
     AppCompatActivity(),
     StartMenu.Companion.StartFragmentInterface,
     LoginFragment.Companion.LoginFragmentInterface,
     RegistrationFragment.Companion.RegistrationFragmentInterface,
-    TestFragment.Companion.TestFragmentInterface,
+    TestsListFragment.Companion.TestFragmentInterface,
     AddTestFragment.Companion.AddTestInterface,
     RepositoryNetworkProvider {
-
 
     private val networkModule = NetworkModule()
     private val remoteDataSource = RemoteDataSource(networkModule.api, networkModule.auth)
@@ -29,11 +28,8 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, StartMenu())
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction().add(R.id.fragment_container, StartMenu())
                 .commit()
     }
 
@@ -48,7 +44,7 @@ class MainActivity :
     }
 
     override fun openTestLayout() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestsListFragment())
             .commit()
     }
     override fun openAddTestLayout() {
