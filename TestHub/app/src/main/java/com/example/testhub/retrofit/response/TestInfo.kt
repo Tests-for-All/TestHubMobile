@@ -1,6 +1,5 @@
 package com.example.testhub.retrofit.response
 
-import com.example.testhub.model.Question
 import com.example.testhub.model.Tag
 import kotlinx.serialization.Serializable
 @Serializable
@@ -9,7 +8,13 @@ data class TestInfo (
     val name: String,
     val user: User,
     val tags: List<Tag>,
-    val questionListDtos: List<Question>
+    val questionListDtos: List<QuestionListDto>
+)
+
+@Serializable
+data class QuestionListDto (
+    val id: Long,
+    val name: String
 )
 
 @Serializable

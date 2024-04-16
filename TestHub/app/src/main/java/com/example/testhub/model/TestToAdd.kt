@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 data class TestToAdd (
     val name: String,
     val tags: List<Tag>,
-    val questionCreateDtos: List<Question>
+    val questionCreateDtos: List<QuestionAdd>
 )

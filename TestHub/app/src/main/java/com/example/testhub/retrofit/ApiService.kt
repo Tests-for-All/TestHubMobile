@@ -1,6 +1,7 @@
 package com.example.testhub.retrofit
 
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.QuestionGet
 import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
 import com.example.testhub.model.TestToAdd
@@ -34,4 +35,7 @@ interface ApiService {
 
     @POST("api/v1/tests/")
     suspend fun saveTest(@Body test: TestToAdd): Response<ResponseBody>
+
+    @GET("api/v1/questions/{id}")
+    suspend fun loadQuestion(@Path("id") idQuestion: Long): Response<QuestionGet>
 }

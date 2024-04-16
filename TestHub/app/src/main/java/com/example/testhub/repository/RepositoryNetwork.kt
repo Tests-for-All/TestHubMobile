@@ -2,6 +2,7 @@ package com.example.testhub.repository
 
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.QuestionGet
 import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
 import com.example.testhub.model.TestToAdd
@@ -39,5 +40,9 @@ class RepositoryNetwork(
 
     override suspend fun saveTest(test: TestToAdd): Boolean{
         return remoteDataSource.saveTest(test)
+    }
+
+    override suspend fun loadQuestion(idQuestion: Long): QuestionGet? {
+        return remoteDataSource.loadQuestion(idQuestion)
     }
 }

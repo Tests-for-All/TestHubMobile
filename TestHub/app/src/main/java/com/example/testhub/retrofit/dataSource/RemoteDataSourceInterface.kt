@@ -2,6 +2,7 @@ package com.example.testhub.retrofit.dataSource
 
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.QuestionGet
 import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
 import com.example.testhub.model.TestToAdd
@@ -16,6 +17,6 @@ interface RemoteDataSourceInterface {
     suspend fun loadTests(): List<Test>?
     suspend fun loadInfoTest(idTest: Long): TestInfo?
     suspend fun loadTags(): List<Tag>?
-
     suspend fun saveTest(test: TestToAdd): Boolean
+    suspend fun loadQuestion(idQuestion: Long): QuestionGet?
 }

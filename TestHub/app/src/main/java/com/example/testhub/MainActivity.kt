@@ -11,6 +11,7 @@ import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
+import com.example.testhub.testingFragment.TestingFragment
 import com.example.testhub.testsListFragment.TestsListFragment
 
 class MainActivity :
@@ -49,6 +50,11 @@ class MainActivity :
     }
     override fun openAddTestLayout() {
         supportFragmentManager.beginTransaction().addToBackStack(null).add(R.id.fragment_container, AddTestFragment())
+            .commit()
+    }
+
+    override fun openTestingFragment(testId: Long) {
+        supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, TestingFragment.create(testId))
             .commit()
     }
 

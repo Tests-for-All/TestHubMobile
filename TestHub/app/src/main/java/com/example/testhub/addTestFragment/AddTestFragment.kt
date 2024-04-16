@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.testhub.R
 import com.example.testhub.model.Answer
-import com.example.testhub.model.Question
+import com.example.testhub.model.QuestionAdd
 import com.example.testhub.model.Tag
 import com.example.testhub.model.TestToAdd
 import com.example.testhub.repository.RepositoryNetworkProvider
@@ -62,7 +62,7 @@ class AddTestFragment : Fragment() {
         nameTestET = view.findViewById(R.id.nameTestEditText)
 
         view.findViewById<RecyclerView>(R.id.tag_list).apply {
-            this.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            this.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             val adapter = RecycleTagsAdapter{
                 tag -> tagList.add(tag)
             }
@@ -83,7 +83,6 @@ class AddTestFragment : Fragment() {
 
         view.findViewById<View>(R.id.add_test).setOnClickListener{
             addTest()
-            listener?.backToTestLayout()
         }
     }
 
@@ -95,6 +94,7 @@ class AddTestFragment : Fragment() {
             }
             is ViewModelAddTest.State.Success -> {
                 Toast.makeText(requireContext(), "Успешно добавлен", Toast.LENGTH_SHORT).show()
+                listener?.backToTestLayout()
             }
         }
     }
@@ -146,14 +146,14 @@ class AddTestFragment : Fragment() {
         } )
 
         addQuestion.setOnClickListener {
-            val question = Question(
+            val questionAdd = QuestionAdd(
                 nameQuestionET.text.toString(),
                 detailQuestionET.text.toString(),
                 answerRV.currentList
             )
 
             val newList = questionRV.currentList.toMutableList()
-            newList.add(question)
+            newList.add(questionAdd)
             questionRV.submitList(newList)
 
             Toast.makeText(requireContext(), "Вопрос добавлен", Toast.LENGTH_SHORT).show()

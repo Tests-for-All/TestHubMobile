@@ -1,38 +1,41 @@
 package com.example.testhub.addTestFragment
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testhub.R
-import com.example.testhub.model.Question
+import com.example.testhub.model.QuestionAdd
 
-class RecycleQuestionsAdapter: ListAdapter<Question, RecycleQuestionsAdapter.ViewHolderQuestion>(DiffCallback()) {
+class RecycleQuestionsAdapter: ListAdapter<QuestionAdd, RecycleQuestionsAdapter.ViewHolderQuestion>(DiffCallback()) {
     class ViewHolderQuestion(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val questionName = itemView.findViewById<TextView>(R.id.question_name)
-        fun bind(item: Question) {
+        private val deleteQuestion = itemView.findViewById<View>(R.id.delete_question)
+        fun bind(item: QuestionAdd, adapter: RecycleQuestionsAdapter) {
             questionName.text = item.name
             itemView.setOnClickListener{
                 Log.d("showQuestionInfo", item.toString())
             }
+            deleteQuestion.setOnClickListener {
+                val newList = adapter.currentList.toMutableList()
+                newList.remove(item)
+                adapter.submitList(newList)
+            }
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Question>() {
-        override fun areItemsTheSame(oldItem: Question, newItem: Question): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<QuestionAdd>() {
+        override fun areItemsTheSame(oldItem: QuestionAdd, newItem: QuestionAdd): Boolean {
             return oldItem.name == newItem.name
                     && oldItem.details == newItem.details
                     && oldItem.answerCreateDtos == newItem.answerCreateDtos
         }
 
-        override fun areContentsTheSame(oldItem: Question, newItem: Question): Boolean {
+        override fun areContentsTheSame(oldItem: QuestionAdd, newItem: QuestionAdd): Boolean {
             return oldItem == newItem
         }
     }
@@ -44,6 +47,6 @@ class RecycleQuestionsAdapter: ListAdapter<Question, RecycleQuestionsAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolderQuestion, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, this)
     }
 }

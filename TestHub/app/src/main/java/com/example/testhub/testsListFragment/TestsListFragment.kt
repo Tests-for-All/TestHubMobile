@@ -3,27 +3,18 @@ package com.example.testhub.testsListFragment
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.testhub.R
-import com.example.testhub.addTestFragment.RecycleAnswersAdapter
-import com.example.testhub.addTestFragment.RecycleTagsAdapter
-import com.example.testhub.model.Answer
-import com.example.testhub.model.Question
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.response.TestInfo
 import kotlinx.coroutines.launch
@@ -55,11 +46,10 @@ class TestsListFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.testInfo.observe(this.viewLifecycleOwner, this::showInfo)
         view.findViewById<RecyclerView>(R.id.test_list).apply {
             this.layoutManager = GridLayoutManager(requireActivity(), 1)
             val adapter = RecycleTestsAdapter{ test ->
-                viewModel.testInfo.observe(this@TestsListFragment.viewLifecycleOwner, this@TestsListFragment::showInfo)
                 viewModel.loadTestInfo(test.id)
             }
             this.adapter = adapter
@@ -79,6 +69,7 @@ class TestsListFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.test_detail, null)
         builder.setView(dialogView)
+        val alertDialog = builder.show()
 
         val testName = dialogView.findViewById<TextView>(R.id.test_name)
         val testCreator = dialogView.findViewById<TextView>(R.id.test_creator)
@@ -98,9 +89,9 @@ class TestsListFragment : Fragment() {
         countQuestions.text = "Количество вопросов: ${test?.questionListDtos?.size.toString()?.toIntOrNull() ?: 0}"
 
         takeTestB.setOnClickListener {
-            Toast.makeText(requireContext(), "Прохождение теста", Toast.LENGTH_LONG).show()
+            listener?.openTestingFragment(test?.id ?: -1)
+            alertDialog.dismiss()
         }
-        builder.show()
     }
     private fun loadTests(adapter: RecycleTestsAdapter) {
         lifecycleScope.launch{
@@ -113,6 +104,7 @@ class TestsListFragment : Fragment() {
     companion object {
         interface TestFragmentInterface{
             fun openAddTestLayout()
+            fun openTestingFragment(testId: Long)
         }
     }
 }

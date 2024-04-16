@@ -3,6 +3,7 @@ package com.example.testhub.retrofit.dataSource
 import android.util.Log
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.QuestionGet
 import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
 import com.example.testhub.model.TestToAdd
@@ -96,12 +97,23 @@ class RemoteDataSource(
 
     override suspend fun saveTest(test: TestToAdd): Boolean{
         val response = api.saveTest(test)
-
+        Log.d("testToSave", test.toString())
         Log.d("saveTestResp", response.code().toString())
 
         return when(response.code()){
             201 -> true
             else -> false
+        }
+    }
+
+    override suspend fun loadQuestion(idQuestion: Long): QuestionGet? {
+        val response = api.loadQuestion(idQuestion)
+
+        Log.d("CheckQuestion", response.body().toString())
+
+        return when(response.code()){
+            200 -> response.body()
+            else -> null
         }
     }
 
