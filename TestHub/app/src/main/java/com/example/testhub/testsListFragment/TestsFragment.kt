@@ -19,7 +19,7 @@ import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.response.TestInfo
 import kotlinx.coroutines.launch
 
-class TestsListFragment : Fragment() {
+class TestsFragment : Fragment() {
 
     private var listener: TestFragmentInterface? = null
 
