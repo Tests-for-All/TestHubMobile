@@ -1,8 +1,7 @@
-package com.example.testhub.registration
+package com.example.testhub.registrationFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.testhub.R
-import com.example.testhub.login.LoginFragment
-import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.google.android.material.textfield.TextInputLayout
 

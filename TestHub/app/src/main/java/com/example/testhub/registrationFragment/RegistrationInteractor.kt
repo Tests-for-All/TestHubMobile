@@ -1,4 +1,4 @@
-package com.example.testhub.registration
+package com.example.testhub.registrationFragment
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

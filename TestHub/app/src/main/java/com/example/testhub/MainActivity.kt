@@ -3,8 +3,8 @@ package com.example.testhub
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.testhub.addTestFragment.AddTestFragment
-import com.example.testhub.login.LoginFragment
-import com.example.testhub.registration.RegistrationFragment
+import com.example.testhub.loginFragment.LoginFragment
+import com.example.testhub.registrationFragment.RegistrationFragment
 import com.example.testhub.fragments.StartMenu
 import com.example.testhub.repository.Repository
 import com.example.testhub.repository.RepositoryNetwork
@@ -12,19 +12,19 @@ import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
 import com.example.testhub.testingFragment.TestingFragment
-import com.example.testhub.testsListFragment.TestsListFragment
+import com.example.testhub.testsListFragment.TestsFragment
 
 class MainActivity :
     AppCompatActivity(),
     StartMenu.Companion.StartFragmentInterface,
     LoginFragment.Companion.LoginFragmentInterface,
     RegistrationFragment.Companion.RegistrationFragmentInterface,
-    TestsListFragment.Companion.TestFragmentInterface,
+    TestsFragment.Companion.TestFragmentInterface,
     AddTestFragment.Companion.AddTestInterface,
     TestingFragment.Companion.TestingInterface,
     RepositoryNetworkProvider {
 
-    private val networkModule = NetworkModule()
+    private val networkModule = NetworkModule
     private val remoteDataSource = RemoteDataSource(networkModule.api, networkModule.auth)
     private val repo = RepositoryNetwork(remoteDataSource)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class MainActivity :
     }
 
     override fun openTestLayout() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestsListFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestsFragment())
             .commit()
     }
     override fun openAddTestLayout() {
