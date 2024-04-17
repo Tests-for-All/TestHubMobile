@@ -1,4 +1,4 @@
-package com.example.testhub.testFragment
+import com.example.testhub.testsListFragment.ViewModelTests
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -2,6 +2,7 @@ package com.example.testhub
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.testhub.addTestFragment.AddTestFragment
 import com.example.testhub.loginFragment.LoginFragment
 import com.example.testhub.registrationFragment.RegistrationFragment
 import com.example.testhub.fragments.StartMenu
@@ -10,26 +11,27 @@ import com.example.testhub.repository.RepositoryNetwork
 import com.example.testhub.repository.RepositoryNetworkProvider
 import com.example.testhub.retrofit.NetworkModule
 import com.example.testhub.retrofit.dataSource.RemoteDataSource
-import com.example.testhub.testFragment.TestFragment
+import com.example.testhub.testingFragment.TestingFragment
+import com.example.testhub.testsListFragment.TestsFragment
 
 class MainActivity :
     AppCompatActivity(),
     StartMenu.Companion.StartFragmentInterface,
     LoginFragment.Companion.LoginFragmentInterface,
     RegistrationFragment.Companion.RegistrationFragmentInterface,
+    TestsFragment.Companion.TestFragmentInterface,
+    AddTestFragment.Companion.AddTestInterface,
+    TestingFragment.Companion.TestingInterface,
     RepositoryNetworkProvider {
 
-
-    private val remoteDataSource = RemoteDataSource(NetworkModule.api, NetworkModule.auth)
+    private val networkModule = NetworkModule
+    private val remoteDataSource = RemoteDataSource(networkModule.api, networkModule.auth)
     private val repo = RepositoryNetwork(remoteDataSource)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, StartMenu())
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction().add(R.id.fragment_container, StartMenu())
                 .commit()
     }
 
@@ -44,11 +46,29 @@ class MainActivity :
     }
 
     override fun openTestLayout() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestsFragment())
+            .commit()
+    }
+    override fun openAddTestLayout() {
+        supportFragmentManager.beginTransaction().addToBackStack(null).add(R.id.fragment_container, AddTestFragment())
+            .commit()
+    }
+
+    override fun openTestingFragment(testId: Long) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestingFragment.create(testId))
             .commit()
     }
 
     override fun provideRepository(): Repository {
         return repo
+    }
+
+    override fun backToTestLayout() {
+        val lastFragment = supportFragmentManager.fragments.last()
+        supportFragmentManager.beginTransaction()
+            .apply {
+                remove(lastFragment)
+                commit()
+            }
     }
 }
