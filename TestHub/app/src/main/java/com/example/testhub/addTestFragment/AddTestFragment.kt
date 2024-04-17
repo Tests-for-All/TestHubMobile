@@ -62,7 +62,7 @@ class AddTestFragment : Fragment() {
         nameTestET = view.findViewById(R.id.nameTestEditText)
 
         view.findViewById<RecyclerView>(R.id.tag_list).apply {
-            this.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+            this.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             val adapter = RecycleTagsAdapter{
                 tag -> tagList.add(tag)
             }

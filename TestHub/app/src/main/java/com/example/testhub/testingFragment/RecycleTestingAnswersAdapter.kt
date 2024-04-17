@@ -9,40 +9,45 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testhub.R
-import com.example.testhub.model.Answer
-import com.example.testhub.model.AnswerGet
-import com.example.testhub.model.QuestionGet
+import com.example.testhub.model.UserAnswer
 
-class RecycleTestingAnswersAdapter (/*private val onClickTest: (item: Test) -> Unit*/)
-    : ListAdapter<AnswerGet, RecycleTestingAnswersAdapter.ViewHolderTestingAnswers>(DiffCallback()) {
+class RecycleTestingAnswersAdapter (private val onClickAnswer: (item: UserAnswer) -> Unit)
+    : ListAdapter<UserAnswer, RecycleTestingAnswersAdapter.ViewHolderTestingAnswers>(DiffCallback()) {
     class ViewHolderTestingAnswers(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val answer = itemView.findViewById<TextView>(R.id.answer_text)
-        fun bind(item: AnswerGet) {
+        fun bind(item: UserAnswer, adapter: RecycleTestingAnswersAdapter) {
             answer.text = item.text
-            setBG(item.isTrue)
+            setBG(item)
             itemView.setOnClickListener {
-                item.isTrue = !item.isTrue
-                setBG(item.isTrue)
+                adapter.onClickAnswer(item)
+                setBG(item)
             }
         }
-        private fun setBG(isTrue: Boolean){
-            if(isTrue){
-                val drawable = ContextCompat.getDrawable(itemView.context, R.drawable.rounded_shape_green_with_stroke)
+
+        private fun setBG(item: UserAnswer) {
+            if (item.isTrue) {
+                val drawable = ContextCompat.getDrawable(
+                    itemView.context,
+                    R.drawable.rounded_shape_green_with_stroke
+                )
                 itemView.background = drawable
-            }
-            else{
-                val drawable = ContextCompat.getDrawable(itemView.context, R.drawable.rounded_shape_white_with_stroke)
+            } else {
+                val drawable = ContextCompat.getDrawable(
+                    itemView.context,
+                    R.drawable.rounded_shape_white_with_stroke
+                )
                 itemView.background = drawable
             }
         }
+
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<AnswerGet>() {
-        override fun areItemsTheSame(oldItem: AnswerGet, newItem: AnswerGet): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<UserAnswer>() {
+        override fun areItemsTheSame(oldItem: UserAnswer, newItem: UserAnswer): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: AnswerGet, newItem: AnswerGet): Boolean {
+        override fun areContentsTheSame(oldItem: UserAnswer, newItem: UserAnswer): Boolean {
             return oldItem == newItem
         }
     }
@@ -54,6 +59,6 @@ class RecycleTestingAnswersAdapter (/*private val onClickTest: (item: Test) -> U
 
     override fun onBindViewHolder(holder: ViewHolderTestingAnswers, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, this)
     }
 }

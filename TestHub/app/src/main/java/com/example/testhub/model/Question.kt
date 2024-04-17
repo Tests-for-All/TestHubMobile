@@ -10,9 +10,17 @@ data class QuestionAdd (
 )
 
 @Serializable
-data class QuestionGet (
+data class QuestionHidden (
     val id: Long,
     val name: String,
     val details: String,
-    val answerDtos: List<AnswerGet>
+    val answerHiddenDtos: List<AnswerHidden>
+)
+
+@Serializable
+data class Question (
+    val id: Long,
+    val name: String,
+    val details: String,
+    val answerDtos: List<UserAnswer>
 )

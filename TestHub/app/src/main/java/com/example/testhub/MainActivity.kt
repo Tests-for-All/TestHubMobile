@@ -21,6 +21,7 @@ class MainActivity :
     RegistrationFragment.Companion.RegistrationFragmentInterface,
     TestsListFragment.Companion.TestFragmentInterface,
     AddTestFragment.Companion.AddTestInterface,
+    TestingFragment.Companion.TestingInterface,
     RepositoryNetworkProvider {
 
     private val networkModule = NetworkModule()
@@ -54,7 +55,7 @@ class MainActivity :
     }
 
     override fun openTestingFragment(testId: Long) {
-        supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.fragment_container, TestingFragment.create(testId))
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, TestingFragment.create(testId))
             .commit()
     }
 

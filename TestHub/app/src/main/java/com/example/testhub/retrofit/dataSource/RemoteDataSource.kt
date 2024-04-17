@@ -3,15 +3,15 @@ package com.example.testhub.retrofit.dataSource
 import android.util.Log
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
-import com.example.testhub.model.QuestionGet
+import com.example.testhub.model.QuestionHidden
 import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
 import com.example.testhub.model.TestToAdd
+import com.example.testhub.model.TestToCheck
 import com.example.testhub.model.User
 import com.example.testhub.retrofit.ApiService
 import com.example.testhub.retrofit.AuthInterceptor
 import com.example.testhub.retrofit.response.TestInfo
-import retrofit2.Response
 
 class RemoteDataSource(
     private val api: ApiService,
@@ -106,7 +106,7 @@ class RemoteDataSource(
         }
     }
 
-    override suspend fun loadQuestion(idQuestion: Long): QuestionGet? {
+    override suspend fun loadQuestion(idQuestion: Long): QuestionHidden? {
         val response = api.loadQuestion(idQuestion)
 
         Log.d("CheckQuestion", response.body().toString())
@@ -114,6 +114,17 @@ class RemoteDataSource(
         return when(response.code()){
             200 -> response.body()
             else -> null
+        }
+    }
+
+    override suspend fun checkTest(test: TestToCheck): Boolean {
+        val response = api.checkTest(test)
+
+        Log.d("CheckCheckTest", test.toString())
+
+        return when(response.code()){
+            201 -> true
+            else -> false
         }
     }
 

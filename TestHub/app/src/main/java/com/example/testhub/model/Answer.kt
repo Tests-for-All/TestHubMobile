@@ -9,7 +9,13 @@ data class Answer(
 )
 
 @Serializable
-data class AnswerGet (
+data class AnswerHidden (
+    val id: Long,
+    val text: String
+)
+
+@Serializable
+data class UserAnswer (
     val id: Long,
     val text: String,
     var isTrue: Boolean
