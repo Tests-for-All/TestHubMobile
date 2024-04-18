@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +20,7 @@ import com.example.testhub.model.QuestionResultCreateDto
 import com.example.testhub.model.TestToCheck
 import com.example.testhub.model.UserAnswer
 import com.example.testhub.repository.RepositoryNetworkProvider
+import com.example.testhub.retrofit.response.ResultTest
 import com.example.testhub.retrofit.response.TestInfo
 
 class TestingFragment : Fragment() {
@@ -67,11 +69,13 @@ class TestingFragment : Fragment() {
         viewModel.testInfo.observe(this.viewLifecycleOwner, this::showTest)
         viewModel.loadTestInfo(testId)
         viewModel.question.observe(this.viewLifecycleOwner, this::showQuestion)
+        viewModel.checkTest.observe(this.viewLifecycleOwner, this::showResults)
 
         titleTest = view.findViewById(R.id.question_title)
         questionText = view.findViewById(R.id.test_question)
 
         passTestButton = view.findViewById(R.id.pass_test_b)
+        passTestButton.visibility = View.GONE
         nextQuestion = view.findViewById(R.id.next_question)
         prevQuestion = view.findViewById(R.id.previous_question)
 
@@ -83,6 +87,16 @@ class TestingFragment : Fragment() {
         }
 
         initButtons()
+    }
+
+    private fun showResults(resultTest: ResultTest?) {
+        if(resultTest == null)
+            Toast.makeText(requireContext(), "Возникла непредвиденная ошибка", Toast.LENGTH_LONG).show()
+        else{
+            val rez = (resultTest.testResultInformationListDto.percentageCorrectAnswers * 100).toInt()
+            Toast.makeText(requireContext(), "Ваш результат: $rez баллов из 100", Toast.LENGTH_LONG).show()
+            listener?.openTestLayout()
+        }
     }
 
     private fun selectAnswer(answerToCheck: UserAnswer) {
@@ -98,14 +112,15 @@ class TestingFragment : Fragment() {
                 questionResult
             )
             viewModel.checkTest(test)
-
-            listener?.openTestLayout()
         }
 
         nextQuestion.setOnClickListener{
             if(currentQuestion < currentTest.questionListDtos.size - 1){
                 currentQuestion++
                 viewModel.loadQuestion(currentTest.questionListDtos[currentQuestion].id)
+            }
+            if(currentQuestion == currentTest.questionListDtos.size - 1){
+                passTestButton.visibility = View.VISIBLE
             }
         }
 

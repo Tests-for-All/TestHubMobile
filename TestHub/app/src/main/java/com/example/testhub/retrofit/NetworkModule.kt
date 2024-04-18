@@ -14,7 +14,7 @@ object NetworkModule {
         .addInterceptor(auth)
         .build()
 
-    private const val ip = "192.168.1.103"
+    private const val ip = "192.168.43.169" /*46.101.86.38*/
     private const val baseUrl = "http://$ip:8080/"
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)

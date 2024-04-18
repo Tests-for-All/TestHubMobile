@@ -137,7 +137,7 @@ class AddTestFragment : Fragment() {
                 newList.clear()
 
                 repeat(count) {
-                    newList.add(Answer(" ", false))
+                    newList.add(Answer("", false))
                 }
 
                 Log.d("listCount", newList.size.toString())
@@ -146,17 +146,23 @@ class AddTestFragment : Fragment() {
         } )
 
         addQuestion.setOnClickListener {
-            val questionAdd = QuestionAdd(
-                nameQuestionET.text.toString(),
-                detailQuestionET.text.toString(),
-                answerRV.currentList
-            )
+            if(answerRV.currentList.none { it.isTrue })
+                Toast.makeText(requireContext(), "Выберите хотя бы 1 правильный вариант ответа", Toast.LENGTH_SHORT).show()
+            else {
+                val questionAdd = QuestionAdd(
+                    nameQuestionET.text.toString(),
+                    detailQuestionET.text.toString(),
+                    answerRV.currentList
+                )
 
-            val newList = questionRV.currentList.toMutableList()
-            newList.add(questionAdd)
-            questionRV.submitList(newList)
+                Log.d("CheckAnswers", answerRV.currentList.toString())
 
-            Toast.makeText(requireContext(), "Вопрос добавлен", Toast.LENGTH_SHORT).show()
+                val newList = questionRV.currentList.toMutableList()
+                newList.add(questionAdd)
+                questionRV.submitList(newList)
+
+                Toast.makeText(requireContext(), "Вопрос добавлен", Toast.LENGTH_SHORT).show()
+            }
         }
         builder.show()
     }

@@ -28,7 +28,7 @@ class RecycleTestingAnswersAdapter (private val onClickAnswer: (item: UserAnswer
             if (item.isTrue) {
                 val drawable = ContextCompat.getDrawable(
                     itemView.context,
-                    R.drawable.rounded_shape_green_with_stroke
+                    R.drawable.rounded_shape_yellow_with_stroke
                 )
                 itemView.background = drawable
             } else {
