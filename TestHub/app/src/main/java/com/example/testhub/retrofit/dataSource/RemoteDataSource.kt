@@ -3,6 +3,7 @@ package com.example.testhub.retrofit.dataSource
 import android.util.Log
 import com.example.testhub.model.JWT
 import com.example.testhub.model.LoginUser
+import com.example.testhub.model.PageCriteria
 import com.example.testhub.model.QuestionHidden
 import com.example.testhub.model.Tag
 import com.example.testhub.model.Test
@@ -11,6 +12,8 @@ import com.example.testhub.model.TestToCheck
 import com.example.testhub.model.User
 import com.example.testhub.retrofit.ApiService
 import com.example.testhub.retrofit.AuthInterceptor
+import com.example.testhub.retrofit.response.PageTest
+import com.example.testhub.retrofit.response.ResultTest
 import com.example.testhub.retrofit.response.TestInfo
 
 class RemoteDataSource(
@@ -38,7 +41,7 @@ class RemoteDataSource(
 
     override suspend fun authorization(user: LoginUser): Boolean {
         val response = api.signIn(user)
-
+        Log.d("signIn", "${response.code()}")
         return when(response.code()){
             200 -> {
                 val jwt = JWT(response.body()?.token.orEmpty())
@@ -54,17 +57,8 @@ class RemoteDataSource(
         }
     }
 
-    override suspend fun exampleRequest(): Boolean {
-        val response = api.example()
-        return when(response.code()){
-            200 -> true
-            else -> false
-        }
-
-
-    }
     override suspend fun loadTests(): List<Test>? {
-        val response = api.loadTests()
+        val response = api.loadAllTests()
 
         return when(response.code()){
             200 -> {
@@ -117,15 +111,25 @@ class RemoteDataSource(
         }
     }
 
-    override suspend fun checkTest(test: TestToCheck): Boolean {
+    override suspend fun checkTest(test: TestToCheck): ResultTest? {
         val response = api.checkTest(test)
 
-        Log.d("CheckCheckTest", test.toString())
+        Log.d("CheckCheckTest", response.body().toString())
 
         return when(response.code()){
-            201 -> true
-            else -> false
+            201 -> response.body()
+            else -> null
         }
     }
 
+    override suspend fun loadPageTest(page: Long, pageSize: Int, criteria : PageCriteria): PageTest?{
+        val response = api.loadPageTests(page, pageSize,criteria)
+        return when(response.code()){
+            200 -> {
+                Log.d("checkPage", response.body().toString())
+                response.body()
+            }
+            else -> null
+        }
+    }
 }

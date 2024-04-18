@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.testhub.model.QuestionHidden
 import com.example.testhub.model.TestToCheck
 import com.example.testhub.repository.Repository
+import com.example.testhub.retrofit.response.ResultTest
 import com.example.testhub.retrofit.response.TestInfo
 import kotlinx.coroutines.launch
 
@@ -19,8 +20,8 @@ class ViewModelTesting (
     private val _question = MutableLiveData<QuestionHidden>()
     val question: LiveData<QuestionHidden> get() = _question
 
-    private val _checkTest = MutableLiveData<State>(State.Default())
-    val checkTest : LiveData<State> get() = _checkTest
+    private val _checkTest = MutableLiveData<ResultTest?>()
+    val checkTest : LiveData<ResultTest?> get() = _checkTest
 
     fun loadTestInfo(idTest: Long){
         viewModelScope.launch {
@@ -36,19 +37,7 @@ class ViewModelTesting (
 
     fun checkTest(test: TestToCheck){
         viewModelScope.launch {
-            val ans = repo.checkTest(test)
-            if(ans){
-                _checkTest.value = State.Success()
-            }
-            else
-                _checkTest.value = State.Error()
+            _checkTest.value = repo.checkTest(test)
         }
     }
-
-    sealed class State {
-        class Default : State()
-        class Success : State()
-        class Error : State()
-    }
-
 }

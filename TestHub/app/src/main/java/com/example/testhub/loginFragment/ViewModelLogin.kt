@@ -1,5 +1,6 @@
 package com.example.testhub.loginFragment
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +19,9 @@ class ViewModelLogin (
     fun login(username: String, password: String){
         viewModelScope.launch {
             _state.value = State.Loading()
-
+            Log.d("signIp", "${username} ${password}")
             val response = repo.authorization(LoginUser(username, password))
+            Log.d("signIp", "$response")
 
             if(!response)
                 _state.value = State.LoginError()
